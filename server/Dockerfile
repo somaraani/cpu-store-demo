@@ -26,6 +26,9 @@ RUN docker-php-ext-install mbstring pdo pdo_mysql \
     && docker-php-ext-enable sqlsrv pdo_sqlsrv xdebug \
     && a2enmod rewrite
 
+# Need unzip for composer
+RUN apt-get install -y unzip
+
 # Copy source code
 COPY resources/apache2.conf /etc/apache2/apache2.conf
 COPY /src /var/www/html
