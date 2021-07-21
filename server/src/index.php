@@ -34,7 +34,7 @@ $app->add(function ($request, $handler) {
 
     // Allow cross origin requests for required domains
     return $response
-            ->withHeader('Access-Control-Allow-Origin', 'http://localhost:4200')
+            ->withHeader('Access-Control-Allow-Origin', 'http://localhost:8888')
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
             ->withHeader('Content-Type', 'application/json');

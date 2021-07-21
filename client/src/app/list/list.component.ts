@@ -102,7 +102,11 @@ export class ListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      this.loaded = false;
+      this.cpuWrapper.getAll(this.onlyShowInStock).subscribe((cpus) => {
+        this.cpus = cpus;
+        this.loaded = true;
+      });
     });
   }
 
@@ -121,7 +125,7 @@ export class CreateDialog {
   onNoClick(): void {
     this.dialogRef.close();
 
-    if(this.data.model && this.data.manufacturer && this.data.speed && this.data.cores) {
+    if (this.data.model && this.data.manufacturer && this.data.speed && this.data.cores) {
       this.cpuWrapper.create(this.data).subscribe();
     }
   }

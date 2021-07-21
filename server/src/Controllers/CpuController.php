@@ -47,7 +47,7 @@ class CpuController extends BaseController
             return $response->withStatus(400);
         }
 
-        $id = $this->cpuService->create($params['manufacturer'], $params['model'], $params['speed'], $params['cores'], $params['imgurl']);
+        $id = $this->cpuService->create($params['manufacturer'], $params['model'], $params['speed'], $params['cores'], $params['img']);
         $response->getBody()->write($this->cpuService->get($id));
         return $response->withStatus(201);
     }

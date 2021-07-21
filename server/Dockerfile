@@ -2,10 +2,11 @@ FROM php:7.3-apache
 
 ENV ACCEPT_EULA=Y
 
+# Install dependencies 
+
 RUN apt-get update && apt-get install -y gnupg2
 
 # Microsoft SQL Server Prerequisites
-
 RUN apt-get update \
     && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
     && curl https://packages.microsoft.com/config/debian/9/prod.list \
@@ -25,7 +26,10 @@ RUN docker-php-ext-install mbstring pdo pdo_mysql \
     && docker-php-ext-enable sqlsrv pdo_sqlsrv xdebug \
     && a2enmod rewrite
 
+# Copy source code
 COPY resources/apache2.conf /etc/apache2/apache2.conf
-# COPY resources/.htaccess /var/www/public/.htaccess
+COPY /src /var/www/html
 
-# COPY index.php /var/www/public
+# Install composer for PHP dependencies
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN composer update

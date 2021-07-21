@@ -7,7 +7,7 @@ import { Cpu } from './Models';
 @NgModule()
 export class CpuWrapper {
 
-    private url = "cpu-server/cpu";
+    private url = "http://localhost:80/cpu";
 
     constructor(private http: HttpClient) { }
 

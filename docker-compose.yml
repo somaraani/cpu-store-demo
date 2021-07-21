@@ -12,9 +12,7 @@ services:
     build: ./server
     ports:
       - 80:80
-    volumes:
-      - ./server/src:/var/www/html
-
+      
   cpu-client:
     build: ./client
     ports:
