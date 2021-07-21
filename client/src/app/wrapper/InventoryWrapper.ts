@@ -20,7 +20,6 @@ export class InventoryWrapper {
     }
 
     public update(inventory: Inventory) {
-        console.log(inventory)
         return this.http.put(this.url, inventory);
     }
 

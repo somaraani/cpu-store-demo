@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ContentChild, OnInit, ViewChild } from '@angular/core';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 import { StatsComponent } from '../stats/stats.component';
 
 @Component({
@@ -8,9 +9,14 @@ import { StatsComponent } from '../stats/stats.component';
 })
 export class HomeComponent implements OnInit {
 
+  @ViewChild(StatsComponent) appStats: StatsComponent | undefined; 
+  
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onChange(event: MatTabChangeEvent) {
+    this.appStats?.refresh();
+  }
 }

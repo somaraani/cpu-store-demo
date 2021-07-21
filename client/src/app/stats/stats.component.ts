@@ -25,20 +25,31 @@ export class StatsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.refresh();
+  }
+
+  public refresh(): void {
+    this.loaded = false;
+    
+    this.totalStock = 0;
+    this.minPrice = Number.MAX_VALUE;
+    this.maxPrice = 0;
+    this.avgPrice = 0;
+
     this.inventoryWrapper.getAll().subscribe((inventory) => {
-        this.inventory = inventory;
+      this.inventory = inventory;
 
-        inventory.forEach(item => {
-          this.totalStock += item.quantity;
-          this.avgPrice += item.price;
-        
-          this.minPrice = Math.min(this.minPrice, item.price);
-          this.maxPrice = Math.max(this.maxPrice, item.price);
-        });
+      inventory.forEach(item => {
+        this.totalStock += item.quantity;
+        this.avgPrice += item.price;
+      
+        this.minPrice = Math.min(this.minPrice, item.price);
+        this.maxPrice = Math.max(this.maxPrice, item.price);
+      });
 
-        this.avgPrice = this.avgPrice/inventory.length;
-        this.loaded = true;
-    });
+      this.avgPrice = this.avgPrice/inventory.length;
+      this.loaded = true;
+  });
   }
 
 }

@@ -1,6 +1,6 @@
-<mat-tab-group>
+<mat-tab-group (selectedTabChange)=" onChange($event)">
     <mat-tab label="Total Stats">
-        <app-stats></app-stats>
+        <app-stats #appStats></app-stats>
     </mat-tab>
     <mat-tab label="List">
         <app-list></app-list>

@@ -89,10 +89,8 @@ export class ListComponent implements OnInit {
 
   onCheck(event: MatCheckboxChange) {
     this.loaded = false;
-    this.cpuWrapper.getAll(event.checked).subscribe((cpus) => {
-      this.cpus = cpus;
-      this.loaded = true;
-    });
+    this.onlyShowInStock = event.checked;
+    this.refresh();
   }
 
   openDialog(): void {
@@ -102,14 +100,17 @@ export class ListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.loaded = false;
-      this.cpuWrapper.getAll(this.onlyShowInStock).subscribe((cpus) => {
-        this.cpus = cpus;
-        this.loaded = true;
-      });
+      this.refresh();
     });
   }
 
+  refresh() {
+    this.loaded = false;
+    this.cpuWrapper.getAll(this.onlyShowInStock).subscribe((cpus) => {
+      this.cpus = cpus;
+      this.loaded = true;
+    });
+  }
 }
 
 @Component({
