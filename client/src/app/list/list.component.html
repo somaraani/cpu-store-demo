@@ -1,0 +1,92 @@
+<div class=list>
+
+    <div>
+        <div class="label">
+            <mat-checkbox (change)="onCheck($event)" [checked]="onlyShowInStock">Only show in stock CPU's</mat-checkbox>
+        </div>
+
+        <div class="btn">
+            <button mat-raised-button (click)="openDialog()" color="accent">+ Add CPU</button>
+        </div>
+    </div>
+
+    <br />
+
+    <div class=list-acc>
+        <mat-accordion *ngIf="loaded; else loading">
+
+            <mat-expansion-panel *ngFor="let cpu of cpus" (opened)="load(cpu.product_id)">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        <b>{{cpu.manufacturer}}</b>
+                    </mat-panel-title>
+
+                    <mat-panel-description>
+                        {{cpu.model}}
+
+                    </mat-panel-description>
+
+                </mat-expansion-panel-header>
+
+                <mat-divider class="divider"></mat-divider>
+
+                <div>
+                    <div class="image">
+                        <img height="250px" src="{{ (cpu.img == null) ? 'https://i.pinimg.com/474x/fa/2f/12/fa2f128fedb744e8def2981a54cd96df.jpg'
+                                                                      : cpu.img }}" />
+                    </div>
+
+                    <div class="info">
+                        <p><span class="accent">Cores:</span> {{cpu.cores}}</p>
+                        <p><span class="accent">Speed:</span> {{cpu.speed}} Mhz</p>
+
+                        <h2>Inventory
+                            <button mat-icon-button>
+                                <mat-icon (click)="edit(cpu.product_id)">{{ (editing) ? "save" : "edit"}}</mat-icon>
+                            </button>
+                        </h2>
+
+                        <div *ngIf="inventoryLoaded; else loadingInventory">
+                            <div *ngIf="editing; else notEditing">
+                                <mat-form-field type="number" color="accent" min="0" appearance="fill">
+                                    <mat-label>Quantity</mat-label>
+                                    <input [formControl]="quantityInput" matInput>
+                                </mat-form-field>
+                                <br />
+                                <mat-form-field name="price" color="accent" appearance="fill">
+                                    <mat-label>Price</mat-label>
+                                    <input [formControl]="priceInput" matInput>
+                                </mat-form-field>
+                            </div>
+
+                            <div *ngIf="inventoryEmpty">
+                                <p class="warn">This CPU is not yet in inventory.</p>
+                            </div>
+
+                            <ng-template #notEditing>
+                                <div *ngIf="!inventoryEmpty">
+                                    <p><span class="accent">Quantity:</span> {{ currentInventory!.quantity }}</p>
+                                    <p><span class="accent">Price:</span> ${{ currentInventory!.price }}</p>
+                                </div>
+                            </ng-template>
+
+                        </div>
+
+                        <ng-template #loadingInventory>
+                            <mat-progress-bar color="accent" mode="indeterminate"></mat-progress-bar>
+                        </ng-template>
+
+                    </div>
+                </div>
+
+            </mat-expansion-panel>
+
+        </mat-accordion>
+
+
+        <ng-template #loading>
+            <mat-progress-bar color="accent" mode="indeterminate"></mat-progress-bar>
+        </ng-template>
+    </div>
+
+</div>

@@ -1,0 +1,21 @@
+version: "3"
+services:
+
+  sql-server:
+    build: ./database
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: ${SA_PASSWORD}
+
+  cpu-server:
+    build: ./server
+    ports:
+      - 80:80
+    volumes:
+      - ./server/src:/var/www/html
+
+  cpu-client:
+    build: ./client
+    ports:
+      - "8888:80"

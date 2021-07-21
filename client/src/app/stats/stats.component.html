@@ -1,0 +1,35 @@
+<mat-card class="stats">
+  <mat-card-content>
+    <mat-card-title>Inventory Overview</mat-card-title>
+    <mat-card-subtitle>Statistics about overall CPU inventory</mat-card-subtitle>
+
+
+    <div *ngIf="loaded; else loading" class="stat-container">
+      <div class="stat">
+        <h2>Total Stock</h2>
+        <p>{{totalStock}}</p>
+      </div>
+
+      <div class="stat">
+        <h2>Min Price</h2>
+        <p>${{minPrice | number : '1.2-2'}}</p>
+      </div>
+
+      <div class="stat">
+        <h2>Max Price</h2>
+        <p>${{maxPrice | number : '1.2-2'}}</p>
+      </div>
+
+      <div class="stat">
+        <h2>Avg. Price</h2>
+        <p>${{avgPrice | number : '1.2-2' }}</p>
+      </div>
+    </div>
+
+    <ng-template #loading>
+      <mat-progress-bar color="accent" mode="indeterminate"></mat-progress-bar>
+    </ng-template>
+
+
+  </mat-card-content>
+</mat-card>

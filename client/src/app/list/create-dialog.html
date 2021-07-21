@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>Add new CPU</h1>
+<div mat-dialog-content class="full-width" >
+  <p>Enter CPU details</p>
+  <mat-form-field appearance="fill" class="full-width" color="accent">
+    <mat-label>Manufacturer</mat-label>
+    <input matInput [(ngModel)]="data.manufacturer">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill"  class="full-width"color="accent">
+    <mat-label>Model</mat-label>
+    <input matInput [(ngModel)]="data.model">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width" color="accent">
+    <mat-label>Speed</mat-label>
+    <input matInput [(ngModel)]="data.speed">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width" color="accent">
+    <mat-label>Cores</mat-label>
+    <input matInput [(ngModel)]="data.cores">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width" color="accent">
+    <mat-label>Image URL</mat-label>
+    <input matInput [(ngModel)]="data.img">
+  </mat-form-field>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="onNoClick()">Save</button>
+</div>
