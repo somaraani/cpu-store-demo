@@ -1,19 +1,28 @@
 version: "3"
 services:
 
+  proxy:
+    image: nginx
+    volumes:
+      - ./proxy/:/etc/nginx/templates/
+    ports:
+      - "80:80"
+    environment:
+      - NGINX_HOST=${FRONT_END_URL}
+      - NGINX_PORT=80
+
   sql-server:
     build: ./database
-    ports:
-      - "1433:1433"
     environment:
-      SA_PASSWORD: StrongP@ssword!
+      SA_PASSWORD: "${DB_PASSWORD}"
 
   cpu-server:
     build: ./server
-    ports:
-      - 80:80
-      
+    environment:
+      SA_PASSWORD: "${DB_PASSWORD}"
+      FRONT_END_URL: "${FRONT_END_URL}"
+  
   cpu-client:
     build: ./client
-    ports:
-      - "8888:80"
+    environment:
+      BACKEND_API_URL: "${BACKEND_API_URL}"

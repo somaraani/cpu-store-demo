@@ -30,9 +30,14 @@ RUN docker-php-ext-install mbstring pdo pdo_mysql \
 RUN apt-get install -y unzip
 
 # Copy source code
-COPY resources/apache2.conf /etc/apache2/apache2.conf
+COPY deployment/apache2.conf /etc/apache2/apache2.conf
 COPY /src /var/www/html
 
 # Install composer for PHP dependencies
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer update
+
+# Copy & Run entry script
+COPY deployment/entrypoint.sh ./entrypoint.sh
+RUN chmod +x ./entrypoint.sh
+CMD /bin/sh ./entrypoint.sh

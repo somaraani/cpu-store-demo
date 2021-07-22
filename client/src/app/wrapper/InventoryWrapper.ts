@@ -2,12 +2,13 @@ import { Injectable, NgModule } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Inventory } from './Models';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 @NgModule()
 export class InventoryWrapper {
 
-    private url = "http://localhost:80/inventory";
+    private url = `${environment.api_url}/inventory`;
 
     constructor(private http: HttpClient) { }
 

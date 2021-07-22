@@ -10,6 +10,8 @@ require 'Controllers/CpuController.php';
 
 require __DIR__ . '/vendor/autoload.php';
 
+$config = include('System/Config.php');
+
 $container = new Container();
 
 // Create app for routing
@@ -28,19 +30,24 @@ $container->set('CpuController', function() {
 });
 
 // Middleware (all requests go through this first)
-$app->add(function ($request, $handler) {
+$app->add(function ($request, $handler) use($config) {
     // add JSON content header
     $response = $handler->handle($request);
 
     // Allow cross origin requests for required domains
     return $response
-            ->withHeader('Access-Control-Allow-Origin', 'http://localhost:8888')
+            ->withHeader('Access-Control-Allow-Origin', $config['front-end-url']) //only allow from front-end url
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
             ->withHeader('Content-Type', 'application/json');
     return $response;
 });
 
+// 404 Error Handler
+$errorMiddleware = $app->addErrorMiddleware(false, true, true);
+$errorMiddleware->setErrorHandler(HttpNotFoundException::class, function (Throwable $exception, bool $displayErrorDetails) {
+   return "This endpoint does not exist";
+});
 
 //Create Routes -----------------------------------------------------
 

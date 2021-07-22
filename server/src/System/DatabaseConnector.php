@@ -1,5 +1,6 @@
 <?php
 
+
 //Singleton database connector
 class DatabaseConnector
 {
@@ -9,10 +10,12 @@ class DatabaseConnector
     
     private function __construct()
     {
+        $config = include('Config.php');
+
         $server   = 'tcp:sql-server,1433';
         $connectionOptions = array(
             "Database" => "db",
-            "Uid" => "sa", "PWD" => "StrongP@ssword!"
+            "Uid" => "sa", "PWD" => $config["dbpass"]
         );
 
         # Connect

@@ -8,4 +8,13 @@ RUN npm run build
 
 ### STAGE 2: Run ###
 FROM nginx:1.17.1-alpine
+
+# Copy entry script
+COPY deployment/entrypoint.sh /entrypoint.sh
+
+# Copy built project
 COPY --from=build /usr/src/app/dist/client /usr/share/nginx/html
+
+# Run entrypoint script
+RUN chmod +x /entrypoint.sh
+CMD /bin/sh ./entrypoint.sh
