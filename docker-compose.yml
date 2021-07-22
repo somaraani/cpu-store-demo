@@ -6,11 +6,8 @@ services:
     volumes:
       - ./proxy/:/etc/nginx/templates/
     ports:
-      - "80:80"
-    environment:
-      - NGINX_HOST=${FRONT_END_URL}
-      - NGINX_PORT=80
-
+      - "${FRONT_END_PORT}:80"
+      
   sql-server:
     build: ./database
     environment:
@@ -20,8 +17,8 @@ services:
     build: ./server
     environment:
       SA_PASSWORD: "${DB_PASSWORD}"
-      FRONT_END_URL: "${FRONT_END_URL}"
-  
+      FRONT_END_URL: "${FRONT_END_HOST}:${FRONT_END_PORT}"
+
   cpu-client:
     build: ./client
     environment:

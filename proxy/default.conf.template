@@ -4,8 +4,8 @@
 server {
 
 # Setup HTTPS port 
-listen       ${NGINX_PORT};
-server_name  ${NGINX_HOST};
+listen       80;
+server_name  _;
 
     location / {
         proxy_set_header X-Real-IP         $remote_addr;
