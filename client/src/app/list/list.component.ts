@@ -124,10 +124,10 @@ export class CreateDialog {
     @Inject(MAT_DIALOG_DATA) public data: Cpu, private cpuWrapper: CpuWrapper) { }
 
   onNoClick(): void {
-    this.dialogRef.close();
-
     if (this.data.model && this.data.manufacturer && this.data.speed && this.data.cores) {
-      this.cpuWrapper.create(this.data).subscribe();
+      this.cpuWrapper.create(this.data).subscribe(() => {
+        this.dialogRef.close();
+      });
     }
   }
 
